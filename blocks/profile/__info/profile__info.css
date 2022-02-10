@@ -3,15 +3,15 @@
   align-content: center;
   grid-template-columns: repeat(2, min-content);
   grid-template-rows: repeat(2, min-content);
-  gap: 16px 18px;
+  gap: 13px 18px;
   padding-left: 30px;
 }
 @media (max-width: 1024px) {
   .profile__info {
     font-size: 27px;
     line-height: 32.68px;
-    gap: 14px;
+    gap: 10px;
     padding-top: 26px;
-    padding-bottom: 36px;
+    padding-bottom: 33px;
   }
 }

@@ -4,13 +4,13 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #000;
+  background-color: transparent;
   border: 2px solid #fff;
   border-radius: 2px;
-  transition: opacity 0.3s ease 0.1s;
+  transition: opacity 0.3s ease;
+  background-image: url(../../../images/Add-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .profile__add-button:hover {
   opacity: 0.6;

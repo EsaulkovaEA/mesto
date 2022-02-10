@@ -4,13 +4,20 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
-  display: flex;
-  align-items: center;
   align-self: center;
-  justify-content: center;
-  background-color: #000;
-  transition: opacity 0.3s ease 0.1s;
+  background-color: transparent;
+  transition: opacity 0.3s ease;
+  background-image: url(../../../images/Edit-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #fff;
 }
-.profile__edit-button :hover {
+.profile__edit-button:hover {
   opacity: 0.6;
+}
+@media (max-width: 500px) {
+  .profile__edit-button {
+    height: 18px;
+    width: 18px;
+  }
 }
