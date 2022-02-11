@@ -12,7 +12,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .profile {
     max-width: 88%;
     flex-direction: column;
