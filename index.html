@@ -28,6 +28,9 @@
     </section>
     <!-- Elements -->
     <section class="elements">
+      <ul class="element"></ul>
+    </section>
+    <!-- <section class="elements">
       <article class="element">
         <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image" />
         <div class="element__description">
@@ -69,7 +72,7 @@
           <h2 class="element__title">Карачаево-Черкесия</h2>
           <button class="element__like" type="button"></button>
         </div>
-      </article>
+      </article> -->
     </section>
   </main>
   <!-- popup -->
@@ -91,7 +94,7 @@
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <form class="popup__content" name="formElement">
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input popup__input_type_place" placeholder="Введите назмание" required type="text"
+        <input class="popup__input popup__input_type_place" placeholder="Введите название" required type="text"
           name="placeInput" />
         <input class="popup__input popup__input_type_link" placeholder="Введите ссылку" required type="text"
           name="linkInput" />
@@ -105,5 +108,13 @@
   </footer>
   <script src="./scripts/index.js"></script>
 </body>
-
+<template id="cards">
+  <li class="element">
+    <img src="./images/Karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image" />
+    <div class="element__description">
+      <h2 class="element__title">Карачаево-Черкесия</h2>
+      <button class="element__like" type="button"></button>
+    </div>
+  </li>
+</template>
 </html>
