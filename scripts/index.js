@@ -37,6 +37,11 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const popupClosePlaceElement = popupPlaceElement.querySelector(".popup__close");
 const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
+// const elementItems = document.querySelector(".element__items");
+// const cardsTemplate = document.querySelector(".#cards-template").content;
+
+
+// в функцию const cardsElement = cardsTemplate.querySelector('.element').cloneNode(true);
 
 
 
