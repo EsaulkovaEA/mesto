@@ -27,10 +27,10 @@
       <button class="profile__add-button" type="button" aria-label="Добавить"></button>
     </section>
     <!-- Elements -->
-    <section class="elements">
-      <ul class="element__items"></ul>
-    </section>
     <!-- <section class="elements">
+      <ul class="element__items"></ul>
+    </section> -->
+    <section class="elements">
       <article class="element">
         <button class="element__trash"></button>
         <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image" />
@@ -39,7 +39,7 @@
           <button class="element__like" type="button"></button>
         </div>
       </article>
-      <article class="element">
+      <!-- <article class="element">
         <img src="./images/Elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
         <div class="element__description">
           <h2 class="element__title">Гора Эльбрус</h2>
@@ -73,8 +73,8 @@
           <h2 class="element__title">Карачаево-Черкесия</h2>
           <button class="element__like" type="button"></button>
         </div>
-      </article>
-    </section> -->
+      </article> -->
+    </section>
   </main>
   <!-- popup -->
   <div class="popup popup_edit-profile">
@@ -102,6 +102,13 @@
         <button class="popup__button" type="submit">Создать</button>
       </form>
     </div>
+  </div>
+  <div class="popup popup_view-image">
+    <figure class="popup__figure">
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+      <img class="popup__image" alt="" src="./images/Karachaevsk.jpg"/>
+      <figcaption class="popup__caption">Карачаевск</figcaption>
+    </figure>
   </div>
   <!--Footer-->
   <footer class="footer">

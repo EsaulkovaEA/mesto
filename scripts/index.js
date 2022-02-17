@@ -42,6 +42,9 @@ const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button
 
 
 // в функцию const cardsElement = cardsTemplate.querySelector('.element').cloneNode(true);
+const popupImageElement = document.querySelector(".popup_view-image");
+const popupCloseImageElement = popupImageElement.querySelector(".popup__close");
+const popupOpenImageButtonElement = document.querySelector(".element");
 
 
 
@@ -78,11 +81,22 @@ popupOpenPlaceButtonElement.addEventListener("click", function()
   openPopup(popupPlaceElement);
   // console.log(event);
 });
+popupOpenImageButtonElement.addEventListener("click", function()
+{
+  openPopup(popupImageElement);
+  // console.log(event);
+});
+
+
+
 popupCloseProfileElement.addEventListener("click", function(){
   closePopup(popupProfileElement);
 });
 popupClosePlaceElement.addEventListener("click", function(){
   closePopup(popupPlaceElement);
+});
+popupCloseImageElement.addEventListener("click", function(){
+  closePopup(popupImageElement);
 });
 
 // popupElement.addEventListener("click", closePopupByClic kOnOverlay);

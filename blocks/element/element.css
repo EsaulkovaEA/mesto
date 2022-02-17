@@ -8,4 +8,5 @@
   color: #000;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 }
