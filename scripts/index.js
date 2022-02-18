@@ -38,21 +38,30 @@ const popupPlaceElement = document.querySelector(".popup_add-place");
 const popupClosePlaceElement = popupPlaceElement.querySelector(".popup__close");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__content");
 const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
-
-
-const elementItems = document.querySelector(".element__items");
+const placeInput = popupProfileElement.querySelector(".popup__input_type_place");
+const linkInput = popupProfileElement.querySelector(".popup__input_type_link");
 const cardsTemplate = document.querySelector("#cards-template").content;
-// клонируем содержимое тега template
-const cardsElement = cardsTemplate.querySelector('.element').cloneNode(true);
+const elementItems = document.querySelector(".element__items");
 
-
+function renderItem(name,link){
+  // клонируем содержимое тега template
+  const cardElement = cardsTemplate.querySelector('.element').cloneNode(true);
+  const cardImage = cardElement.querySelector('.element__image');
+  cardImage.src = link;
+  cardImage.alt = name;
+  elementItems.append(cardElement);
+  console.log(cardImage);
+}
+function renderItems(items){
+  items.forEach(renderItem);
+}
 
 
 // в функцию const cardsElement = cardsTemplate.querySelector('.element').cloneNode(true);
 const popupImageElement = document.querySelector(".popup_view-image");
 const popupCloseImageElement = popupImageElement.querySelector(".popup__close");
 
-const popupOpenImageButtonElement = document.querySelector(".element");
+// const popupOpenImageButtonElement = document.querySelector(".element");
 
 
 
@@ -99,13 +108,14 @@ popupOpenPlaceButtonElement.addEventListener("click", function()
   openPopup(popupPlaceElement);
   // console.log(event);
 });
-popupOpenImageButtonElement.addEventListener("click", function()
-{
-  openPopup(popupImageElement);
-  // console.log(event);
-});
+// popupOpenImageButtonElement.addEventListener("click", function()
+// {
+//   openPopup(popupImageElement);
+//   // console.log(event);
+// });
 
 
+renderItems(initialCards);
 
 popupCloseProfileElement.addEventListener("click", function(){
   closePopup(popupProfileElement);

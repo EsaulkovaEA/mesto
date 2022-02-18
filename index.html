@@ -27,10 +27,10 @@
       <button class="profile__add-button" type="button" aria-label="Добавить"></button>
     </section>
     <!-- Elements -->
-    <!-- <section class="elements">
-      <ul class="element__items"></ul>
-    </section> -->
     <section class="elements">
+      <ul class="element__items"></ul>
+    </section>
+    <!-- <section class="elements">
       <article class="element">
         <button class="element__trash"></button>
         <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image" />
@@ -38,7 +38,7 @@
           <h2 class="element__title">Карачаевск</h2>
           <button class="element__like" type="button"></button>
         </div>
-      </article>
+      </article> -->
       <!-- <article class="element">
         <img src="./images/Elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
         <div class="element__description">
@@ -114,16 +114,16 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
+  <template id="cards-template">
+    <li class="element">
+      <button class="element__trash"></button>
+      <img src="#" alt="" class="element__image" />
+      <div class="element__description">
+        <h2 class="element__title"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
-<template id="cards-template">
-  <li class="element">
-    <button class="element__trash"></button>
-    <img src="#" alt="" class="element__image" />
-    <div class="element__description">
-      <h2 class="element__title"></h2>
-      <button class="element__like" type="button"></button>
-    </div>
-  </li>
-</template>
 </html>
