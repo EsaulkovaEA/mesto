@@ -1,8 +1,8 @@
-.elements {
+.places {
   padding-top: 51px;
 }
 @media (max-width: 604px) {
-  .elements {
+  .places {
     padding-top: 36px;
   }
 }

@@ -40,7 +40,7 @@ const formPlaceElement = popupPlaceElement.querySelector(".popup__content");
 const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
 const placeInput = popupPlaceElement.querySelector(".popup__input_type_place");
 const linkInput = popupPlaceElement.querySelector(".popup__input_type_link");
-const elementItems = document.querySelector(".element__list");
+const elementItems = document.querySelector(".places__list");
 
 const popupOpenImage = document.querySelector(".popup_view-image");
 const popupCloseImageElement = popupOpenImage.querySelector(".popup__close");
