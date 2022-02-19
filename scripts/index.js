@@ -93,6 +93,8 @@ function addCard() {
   cardElement.name = placeInput.value;
   cardElement.link = linkInput.value;
   elementItems.prepend(renderItem(cardElement));
+  placeInput.value = '';
+  linkInput.value = '';
 }
 function addPlaceFormSubmit(event) {
   event.preventDefault();
