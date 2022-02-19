@@ -39,8 +39,7 @@ const popupClosePlaceElement = popupPlaceElement.querySelector('.popup__close');
 const formPlaceElement = popupPlaceElement.querySelector('.popup__content');
 const popupOpenPlaceButtonElement = document.querySelector('.profile__add-button');
 const placeInput = popupProfileElement.querySelector('.popup__input_type_place');
-const linkInput = popupProfileElement.querySelector('.popup__input_type_link');
-
+const linkInput = popupProfileElement.querySelector('.popup__input_type_link'); 
 const elementItems = document.querySelector('.element__list');
 
 //создаем карточку
@@ -50,6 +49,7 @@ function renderItem (item) {
   const cardElement = cardsTemplate.querySelector('.element__item').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__image');
   const cardTitle = cardElement.querySelector('.element__title');
+  setEventListeners(cardElement);
   cardImage.alt = item.name;
   cardImage.src = item.link;
   cardTitle.textContent = item.name;
@@ -58,8 +58,15 @@ function renderItem (item) {
 function renderItems (items) {
   items.forEach(renderItem);
 }
+// удаление карточки
+function setEventListeners (cardElement){
+  cardElement.querySelector('.element__trash').addEventListener('click',cardDelete);
+}
 
-
+function cardDelete (event){
+  const cardElement = event.target.closest('.element__item');
+  cardElement.remove();
+}
 
 const popupImageElement = document.querySelector('.popup_view-image');
 const popupCloseImageElement = popupImageElement.querySelector('.popup__close');
