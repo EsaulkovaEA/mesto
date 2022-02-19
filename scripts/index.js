@@ -60,13 +60,13 @@ function renderItem(item) {
   cardImage.src = item.link;
   cardTitle.textContent = item.name;
 
-  cardImage.addEventListener("click", popupOpenImageElement);
+  cardImage.addEventListener("click", openPopupImageElement);
 
   const cardTrash = cardElement.querySelector(".element__trash");
-  cardTrash.addEventListener("click", cardDelete);
+  cardTrash.addEventListener("click", deleteCard);
 
-  cardLike = cardElement.querySelector(".element__like");
-  cardLike.addEventListener("click", cardAddLike);
+  const cardLike = cardElement.querySelector(".element__like");
+  cardLike.addEventListener("click", addLikeCard);
 
   return cardElement;
 }
@@ -78,30 +78,30 @@ function renderItems(items) {
 renderItems(initialCards);
 
 // лайк карточки
-function cardAddLike(event) {
+function addLikeCard(event) {
   event.target.classList.toggle("element__like_active");
 }
 // удаление карточки
-function cardDelete(event) {
+function deleteCard(event) {
   const cardElement = event.target.closest(".element__item");
   cardElement.remove();
 }
 
 // добавление карточки
-function cardAdd() {
+function addCard() {
   const cardElement = document.querySelector(".element__item");
   cardElement.name = placeInput.value;
   cardElement.link = linkInput.value;
   elementItems.prepend(renderItem(cardElement));
 }
-function formSubmitAddPlace(event) {
+function addPlaceFormSubmit(event) {
   event.preventDefault();
-  cardAdd();
+  addCard();
   closePopup(popupPlaceElement);
 }
 
 //открытие карточки с изображением
-function popupOpenImageElement(event) {
+function openPopupImageElement(event) {
   openPopup(popupOpenImage);
   popupImageElement.src = event.target.src;
   popupImageElement.alt = event.target.alt;
@@ -109,7 +109,7 @@ function popupOpenImageElement(event) {
 }
 
 // редактировать профиль
-function formSubmitEditProfile(event) {
+function editProfileFormSubmit(event) {
   event.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
@@ -129,9 +129,9 @@ function closePopup(popup) {
 //   closePopup();
 // };
 
-formPlaceElement.addEventListener("submit", formSubmitAddPlace);
+formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
 
-formElement.addEventListener("submit", formSubmitEditProfile);
+formElement.addEventListener("submit", editProfileFormSubmit);
 
 popupOpenProfileButtonElement.addEventListener("click", function () {
   openPopup(popupProfileElement);
