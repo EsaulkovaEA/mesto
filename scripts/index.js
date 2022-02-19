@@ -25,41 +25,44 @@ const initialCards = [
   }
 ];
 
-const popupProfileElement = document.querySelector(".popup_edit-profile");
-const popupCloseProfileElement = popupProfileElement.querySelector(".popup__close");
-const popupOpenProfileButtonElement = document.querySelector(".profile__edit-button");
-const formElement = popupProfileElement.querySelector(".popup__content");
-const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
-const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
+const popupProfileElement = document.querySelector('.popup_edit-profile');
+const popupCloseProfileElement = popupProfileElement.querySelector('.popup__close');
+const popupOpenProfileButtonElement = document.querySelector('.profile__edit-button');
+const formElement = popupProfileElement.querySelector('.popup__content');
+const nameInput = popupProfileElement.querySelector('.popup__input_type_name');
+const jobInput = popupProfileElement.querySelector('.popup__input_type_job');
+const profileTitle = document.querySelector('.profile__title');
+const profileSubtitle = document.querySelector('.profile__subtitle');
 
-const popupPlaceElement = document.querySelector(".popup_add-place");
-const popupClosePlaceElement = popupPlaceElement.querySelector(".popup__close");
-const formPlaceElement = popupPlaceElement.querySelector(".popup__content");
-const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
-const placeInput = popupProfileElement.querySelector(".popup__input_type_place");
-const linkInput = popupProfileElement.querySelector(".popup__input_type_link");
-const cardsTemplate = document.querySelector("#cards-template").content;
-const elementItems = document.querySelector(".element__items");
+const popupPlaceElement = document.querySelector('.popup_add-place');
+const popupClosePlaceElement = popupPlaceElement.querySelector('.popup__close');
+const formPlaceElement = popupPlaceElement.querySelector('.popup__content');
+const popupOpenPlaceButtonElement = document.querySelector('.profile__add-button');
+const placeInput = popupProfileElement.querySelector('.popup__input_type_place');
+const linkInput = popupProfileElement.querySelector('.popup__input_type_link');
 
-function renderItem(name,link){
+const elementItems = document.querySelector('.element__list');
+
+//создаем карточку
+function renderItem (item) {
+  const cardsTemplate = document.querySelector('#cards-template').content;
   // клонируем содержимое тега template
-  const cardElement = cardsTemplate.querySelector('.element').cloneNode(true);
+  const cardElement = cardsTemplate.querySelector('.element__item').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__image');
-  cardImage.src = link;
-  cardImage.alt = name;
+  const cardTitle = cardElement.querySelector('.element__title');
+  cardImage.alt = item.name;
+  cardImage.src = item.link;
+  cardTitle.textContent = item.name;
   elementItems.append(cardElement);
-  console.log(cardImage);
 }
-function renderItems(items){
+function renderItems (items) {
   items.forEach(renderItem);
 }
 
 
-// в функцию const cardsElement = cardsTemplate.querySelector('.element').cloneNode(true);
-const popupImageElement = document.querySelector(".popup_view-image");
-const popupCloseImageElement = popupImageElement.querySelector(".popup__close");
+
+const popupImageElement = document.querySelector('.popup_view-image');
+const popupCloseImageElement = popupImageElement.querySelector('.popup__close');
 
 // const popupOpenImageButtonElement = document.querySelector(".element");
 

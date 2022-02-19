@@ -28,7 +28,7 @@
     </section>
     <!-- Elements -->
     <section class="elements">
-      <ul class="element__items"></ul>
+      <ul class="element__list"></ul>
     </section>
     <!-- <section class="elements">
       <article class="element">
@@ -36,41 +36,6 @@
         <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image" />
         <div class="element__description">
           <h2 class="element__title">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article> -->
-      <!-- <article class="element">
-        <img src="./images/Elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
-        <div class="element__description">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Dombai.jpg" alt="Домбай" class="element__image" />
-        <div class="element__description">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
-        <div class="element__description">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Dombai.jpg" alt="Домбай" class="element__image" />
-        <div class="element__description">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image" />
-        <div class="element__description">
-          <h2 class="element__title">Карачаево-Черкесия</h2>
           <button class="element__like" type="button"></button>
         </div>
       </article> -->
@@ -95,9 +60,9 @@
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <form class="popup__content" name="formElement">
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input popup__input_type_place" placeholder="Введите название" required type="text"
+        <input class="popup__input popup__input_type_place" placeholder="Название" required type="text"
           name="placeInput" />
-        <input class="popup__input popup__input_type_link" placeholder="Введите ссылку" required type="text"
+        <input class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required type="text"
           name="linkInput" />
         <button class="popup__button" type="submit">Создать</button>
       </form>
@@ -115,7 +80,7 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
   <template id="cards-template">
-    <li class="element">
+    <li class="element__item">
       <button class="element__trash"></button>
       <img src="#" alt="" class="element__image" />
       <div class="element__description">
