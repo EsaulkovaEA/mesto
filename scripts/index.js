@@ -42,6 +42,11 @@ const placeInput = popupPlaceElement.querySelector('.popup__input_type_place');
 const linkInput = popupPlaceElement.querySelector('.popup__input_type_link'); 
 const elementItems = document.querySelector('.element__list');
 
+const popupOpenImage = document.querySelector('.popup_view-image');
+const popupCloseImageElement = popupOpenImage.querySelector('.popup__close');
+const popupImageElement = popupOpenImage.querySelector('.popup__image');
+const popupCaptionElement = popupOpenImage.querySelector('.popup__caption');
+
 //создаем карточку
 function renderItem (item) {
   const cardsTemplate = document.querySelector('#cards-template').content;
@@ -49,54 +54,56 @@ function renderItem (item) {
   const cardElement = cardsTemplate.querySelector('.element__item').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__image');
   const cardTitle = cardElement.querySelector('.element__title');
-  setEventListeners(cardElement);
   cardImage.alt = item.name;
   cardImage.src = item.link;
   cardTitle.textContent = item.name;
-  elementItems.append(cardElement);
+
+  cardImage.addEventListener('click', popupOpenImageElement);
+
+  const cardTrash = cardElement.querySelector('.element__trash');
+  cardTrash.addEventListener('click',cardDelete);
+
+  cardLike = cardElement.querySelector('.element__like');
+  cardLike.addEventListener('click',cardAddLike);
+
+  return cardElement;
 }
 function renderItems (items) {
-  items.forEach(renderItem);
+  items.forEach(function(item){elementItems.append(renderItem(item));});
+
+}
+renderItems(initialCards);
+
+// лайк карточки
+function cardAddLike (event){
+  event.target.classList.toggle('element__like_active');
 }
 // удаление карточки
-function setEventListeners (cardElement){
-  cardElement.querySelector('.element__trash').addEventListener('click',cardDelete);
-}
-
 function cardDelete (event){
   const cardElement = event.target.closest('.element__item');
   cardElement.remove();
 }
-// добавление карточки
-// слушатель кнопки Создать
-// formPlaceElement.addEventListener("submit", function formSubmitAddPlace(evt) {
-//   evt.preventDefault();
-//   const cardElement = evt.target.closest('.element__item');
-//   cardElement.name = placeInput.value;
-//   cardElement.link = linkInput.value;
-//   elementItems.preappend(cardElement);
-// });
 
+// добавление карточки
 function cardAdd(){
   const cardElement = document.querySelector('.element__item');
   cardElement.name = placeInput.value;
   cardElement.link = linkInput.value;
-  elementItems.append(renderItem(cardElement));
-  // elementItems.prepend(renderItem(cardElement));
+  elementItems.prepend(renderItem(cardElement));
 }
 function formSubmitAddPlace(event){
   event.preventDefault();
   cardAdd();
-
   closePopup(popupPlaceElement);
 }
-formPlaceElement.addEventListener("submit", formSubmitAddPlace);
 
-const popupImageElement = document.querySelector('.popup_view-image');
-const popupCloseImageElement = popupImageElement.querySelector('.popup__close');
-
-// const popupOpenImageButtonElement = document.querySelector(".element");
-
+//открытие карточки с изображением
+function popupOpenImageElement (event){
+  openPopup(popupOpenImage);
+  popupImageElement.src = event.target.src;
+  popupImageElement.alt = event.target.alt;
+  popupCaptionElement.textContent=event.target.alt;
+}
 
 
 function openPopup (popup) {
@@ -112,6 +119,8 @@ function closePopup (popup) {
 //   }
 //   closePopup();
 // };
+
+formPlaceElement.addEventListener("submit", formSubmitAddPlace);
 
 
 // слушатель кнопки Сохранить
@@ -134,16 +143,9 @@ popupOpenProfileButtonElement.addEventListener("click", function()
 popupOpenPlaceButtonElement.addEventListener("click", function()
 {
   openPopup(popupPlaceElement);
-  // console.log(event);
 });
-// popupOpenImageButtonElement.addEventListener("click", function()
-// {
-//   openPopup(popupImageElement);
-//   // console.log(event);
-// });
 
 
-renderItems(initialCards);
 
 popupCloseProfileElement.addEventListener("click", function(){
   closePopup(popupProfileElement);
@@ -152,7 +154,7 @@ popupClosePlaceElement.addEventListener("click", function(){
   closePopup(popupPlaceElement);
 });
 popupCloseImageElement.addEventListener("click", function(){
-  closePopup(popupImageElement);
+  closePopup(popupOpenImage);
 });
 
 // popupElement.addEventListener("click", closePopupByClic kOnOverlay);
