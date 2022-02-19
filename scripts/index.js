@@ -38,8 +38,8 @@ const popupPlaceElement = document.querySelector('.popup_add-place');
 const popupClosePlaceElement = popupPlaceElement.querySelector('.popup__close');
 const formPlaceElement = popupPlaceElement.querySelector('.popup__content');
 const popupOpenPlaceButtonElement = document.querySelector('.profile__add-button');
-const placeInput = popupProfileElement.querySelector('.popup__input_type_place');
-const linkInput = popupProfileElement.querySelector('.popup__input_type_link'); 
+const placeInput = popupPlaceElement.querySelector('.popup__input_type_place');
+const linkInput = popupPlaceElement.querySelector('.popup__input_type_link'); 
 const elementItems = document.querySelector('.element__list');
 
 //создаем карточку
@@ -67,6 +67,30 @@ function cardDelete (event){
   const cardElement = event.target.closest('.element__item');
   cardElement.remove();
 }
+// добавление карточки
+// слушатель кнопки Создать
+// formPlaceElement.addEventListener("submit", function formSubmitAddPlace(evt) {
+//   evt.preventDefault();
+//   const cardElement = evt.target.closest('.element__item');
+//   cardElement.name = placeInput.value;
+//   cardElement.link = linkInput.value;
+//   elementItems.preappend(cardElement);
+// });
+
+function cardAdd(){
+  const cardElement = document.querySelector('.element__item');
+  cardElement.name = placeInput.value;
+  cardElement.link = linkInput.value;
+  elementItems.append(renderItem(cardElement));
+  // elementItems.prepend(renderItem(cardElement));
+}
+function formSubmitAddPlace(event){
+  event.preventDefault();
+  cardAdd();
+
+  closePopup(popupPlaceElement);
+}
+formPlaceElement.addEventListener("submit", formSubmitAddPlace);
 
 const popupImageElement = document.querySelector('.popup_view-image');
 const popupCloseImageElement = popupImageElement.querySelector('.popup__close');
@@ -90,18 +114,12 @@ function closePopup (popup) {
 // };
 
 
-
+// слушатель кнопки Сохранить
 formElement.addEventListener("submit", function formSubmitEditProfile(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(popupProfileElement);
-});
-
-formPlaceElement.addEventListener("submit", function formSubmitAddPlace(evt) {
-  evt.preventDefault();
-
-  closePopup(popupPlaceElement);
 });
 
 
