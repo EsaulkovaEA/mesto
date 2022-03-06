@@ -1,4 +1,4 @@
-// const popupElement = document.querySelectorAll(".popup");
+ const popupElement = document.querySelectorAll(".popup");
 const popupProfileElement = document.querySelector(".popup_edit-profile");
 const popupCloseProfileElement = popupProfileElement.querySelector(".popup__close");
 const popupOpenProfileButtonElement = document.querySelector(".profile__edit-button");
@@ -105,13 +105,14 @@ function closePopup(popup) {
 }
 
 //закрытие кликом на оверлей
-// const closePopupByClickOnOverlay = function (event) {
-//   if (event.target !== event.currentTarget) {
-//     return;
-//   }
-//   closePopup(popupElement);
-// };
-// popupElement.addEventListener("click", closePopupByClickOnOverlay);
+popupElement.forEach((popup) =>{
+  popup.addEventListener("click", function (event) {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    closePopup(popup);
+  });
+});
 
 formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
 
