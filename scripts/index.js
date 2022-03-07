@@ -1,10 +1,7 @@
 const popupElement = document.querySelectorAll(".popup");
 const popupProfileElement = document.querySelector(".popup_edit-profile");
-const popupCloseProfileElement =
-  popupProfileElement.querySelector(".popup__close");
-const popupOpenProfileButtonElement = document.querySelector(
-  ".profile__edit-button"
-);
+const popupCloseProfileElement = popupProfileElement.querySelector(".popup__close");
+const popupOpenProfileButtonElement = document.querySelector(".profile__edit-button");
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
 const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
 const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
@@ -14,9 +11,7 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const popupClosePlaceElement = popupPlaceElement.querySelector(".popup__close");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
-const popupOpenPlaceButtonElement = document.querySelector(
-  ".profile__add-button"
-);
+const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
 const placeInput = popupPlaceElement.querySelector(".popup__input_type_place");
 const linkInput = popupPlaceElement.querySelector(".popup__input_type_link");
 const elementItems = document.querySelector(".places__list");
@@ -30,9 +25,7 @@ const popupCaptionElement = popupOpenImage.querySelector(".popup__caption");
 function renderItem(item) {
   const cardsTemplate = document.querySelector("#cards-template").content;
   // клонируем содержимое тега template
-  const cardElement = cardsTemplate
-    .querySelector(".element__item")
-    .cloneNode(true);
+  const cardElement = cardsTemplate.querySelector(".element__item").cloneNode(true);
   const cardImage = cardElement.querySelector(".element__image");
   const cardTitle = cardElement.querySelector(".element__title");
   cardImage.alt = item.name;
@@ -116,10 +109,11 @@ popupElement.forEach((popup) => {
     closePopup(popup);
   });
 });
+
 //закрытие нажатием ESC
 popupElement.forEach((popup) => {
-  popup.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
       closePopup(popup);
     }
   });
