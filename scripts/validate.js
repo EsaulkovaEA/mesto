@@ -1,20 +1,20 @@
 const obj = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: '.popup__input-error'
-  };
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_inactive",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: ".popup__input-error",
+};
 
 const showError = (formElement, inputElement, errorMessage) => {
-  const errorElement = inputElement.closest('.popup__form-field').querySelector(obj.errorClass);
+  const errorElement = inputElement.closest(".popup__form-field").querySelector(obj.errorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(obj.inputErrorClass);
 };
 
 const hideError = (formElement, inputElement) => {
-    const errorElement = inputElement.closest('.popup__form-field').querySelector(obj.errorClass);
+  const errorElement = inputElement.closest(".popup__form-field").querySelector(obj.errorClass);
   errorElement.textContent = "";
   errorElement.classList.remove(obj.inputErrorClass);
 };
@@ -56,7 +56,7 @@ const setEventListeners = (formElement) => {
   });
 };
 
-  const enableValidation = ({formSelector}) => {
+const enableValidation = ({ formSelector }) => {
   const forms = document.querySelectorAll(formSelector);
 
   forms.forEach((formElement) => {
