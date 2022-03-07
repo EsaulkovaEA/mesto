@@ -10,7 +10,6 @@
   font-family: inherit;
   box-sizing: border-box;
   margin: 0;
-  position: relative;
 }
 .popup__input:first-of-type {
   margin-bottom: 30px;
