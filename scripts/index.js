@@ -62,13 +62,14 @@ function deleteCard(event) {
 
 // добавление карточки
 function addCard() {
-  const cardElement = document.querySelector(".element__item");
-  cardElement.name = placeInput.value;
-  cardElement.link = linkInput.value;
+  const cardElement = {
+    name: placeInput.value,
+    link: linkInput.value
+  }
   elementItems.prepend(renderItem(cardElement));
   placeInput.value = "";
   linkInput.value = "";
-  enableSubmitButton(submitButtonElement);
+  enableSubmitButton(submitButtonElement,validationObj);
 }
 function addPlaceFormSubmit(event) {
   event.preventDefault();
@@ -93,11 +94,11 @@ function editProfileFormSubmit(event) {
 }
 
 //закрытие нажатием ESC
-const clickEscClose = (evt)  => {
-    if (evt.key === 'Escape') {
-      const popup = document.querySelector('.popup_opened');
-      closePopup(popup);
-    }
+const clickEscClose = (evt) => {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
 };
 
 // открытие попапов
@@ -110,8 +111,16 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', clickEscClose);
-  };
+};
 
+// //закрытие кликом на оверлей и крестик
+// popupElement.forEach((popup) => {
+//   popup.addEventListener("click", function (event) {
+//     if (popup.classList.contains("popup") || popup.classList.contains("popup__close")) {
+//       closePopup(popup);
+//     }
+//   });
+// });
 //закрытие кликом на оверлей
 popupElement.forEach((popup) => {
   popup.addEventListener("click", function (event) {
@@ -121,26 +130,19 @@ popupElement.forEach((popup) => {
     closePopup(popup);
   });
 });
+//открытие попапа редактироватьб профиль
+const openPopupProfile = () => {
+  openPopup(popupProfileElement);
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+}
 
 formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
 
 formProfileElement.addEventListener("submit", editProfileFormSubmit);
 
-popupOpenProfileButtonElement.addEventListener("click", function () {
-  openPopup(popupProfileElement);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-});
+popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
+
 popupOpenPlaceButtonElement.addEventListener("click", function () {
   openPopup(popupPlaceElement);
-});
-
-popupCloseProfileElement.addEventListener("click", function () {
-  closePopup(popupProfileElement);
-});
-popupClosePlaceElement.addEventListener("click", function () {
-  closePopup(popupPlaceElement);
-});
-popupCloseImageElement.addEventListener("click", function () {
-  closePopup(popupOpenImage);
 });
