@@ -22,6 +22,15 @@ const popupCloseImageElement = popupOpenImage.querySelector(".popup__close");
 const popupImageElement = popupOpenImage.querySelector(".popup__image");
 const popupCaptionElement = popupOpenImage.querySelector(".popup__caption");
 
+const obj = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_inactive",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: ".popup__input-error",
+};
+
 //создаем карточку
 function renderItem(item) {
   const cardsTemplate = document.querySelector("#cards-template").content;
@@ -69,8 +78,7 @@ function addCard() {
   elementItems.prepend(renderItem(cardElement));
   placeInput.value = "";
   linkInput.value = "";
-  submitButtonElement.classList.add("popup__button_inactive");
-  submitButtonElement.setAttribute("disabled", true);
+  disableSubmitButton(submitButtonElement,obj);
 }
 function addPlaceFormSubmit(event) {
   event.preventDefault();

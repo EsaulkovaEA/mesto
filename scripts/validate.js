@@ -1,12 +1,3 @@
-const obj = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_inactive",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: ".popup__input-error",
-};
-
 const showError = (formElement, inputElement, errorMessage,validationObj) => {
   const errorElement = inputElement.closest(".popup__form-field").querySelector(validationObj.errorClass);
   errorElement.textContent = errorMessage;
@@ -29,12 +20,12 @@ const checkInputValidity = (formElement, inputElement,validationObj) => {
   }
 };
 
-const enableSubmitButton = (submitButtonElement,validationObj) => {
+const disableSubmitButton = (submitButtonElement,validationObj) => {
     submitButtonElement.classList.add(validationObj.inactiveButtonClass);
     submitButtonElement.setAttribute("disabled", true);
 }
 
-const disableSubmitButton = (submitButtonElement,validationObj) => {
+const enableSubmitButton = (submitButtonElement,validationObj) => {
     submitButtonElement.classList.remove(validationObj.inactiveButtonClass);
     submitButtonElement.removeAttribute("disabled");
 }
@@ -45,9 +36,9 @@ const toggleButtonState = (inputList, submitButtonElement,validationObj) => {
   });
 
   if (hasInvalidInput) {
-    enableSubmitButton(submitButtonElement,validationObj);
-  } else {
     disableSubmitButton(submitButtonElement,validationObj);
+  } else {
+    enableSubmitButton(submitButtonElement,validationObj);
   }
 };
 
