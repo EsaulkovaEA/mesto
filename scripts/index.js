@@ -69,7 +69,8 @@ function addCard() {
   elementItems.prepend(renderItem(cardElement));
   placeInput.value = "";
   linkInput.value = "";
-  enableSubmitButton(submitButtonElement,validationObj);
+  submitButtonElement.classList.add("popup__button_inactive");
+  submitButtonElement.setAttribute("disabled", true);
 }
 function addPlaceFormSubmit(event) {
   event.preventDefault();
@@ -113,24 +114,16 @@ function closePopup(popup) {
   document.removeEventListener('keydown', clickEscClose);
 };
 
-// //закрытие кликом на оверлей и крестик
-// popupElement.forEach((popup) => {
-//   popup.addEventListener("click", function (event) {
-//     if (popup.classList.contains("popup") || popup.classList.contains("popup__close")) {
-//       closePopup(popup);
-//     }
-//   });
-// });
-//закрытие кликом на оверлей
+//закрытие кликом на оверлей и крестик
 popupElement.forEach((popup) => {
   popup.addEventListener("click", function (event) {
-    if (event.target !== event.currentTarget) {
-      return;
+    if (event.target.classList.contains("popup_opened") || event.target.classList.contains("popup__close")) {
+      closePopup(popup);
     }
-    closePopup(popup);
   });
 });
-//открытие попапа редактироватьб профиль
+
+//открытие попапа редактировать профиль
 const openPopupProfile = () => {
   openPopup(popupProfileElement);
   nameInput.value = profileTitle.textContent;
