@@ -1,7 +1,6 @@
 export const popupOpenImage = document.querySelector(".popup_view-image");
 export const popupImageElement = popupOpenImage.querySelector(".popup__image");
-export const popupCaptionElement =
-  popupOpenImage.querySelector(".popup__caption");
+export const popupCaptionElement = popupOpenImage.querySelector(".popup__caption");
 
 // открытие попапов
 export const openPopup = (popup) => {
