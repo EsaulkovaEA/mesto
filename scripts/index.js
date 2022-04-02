@@ -14,7 +14,6 @@ const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const popupPlaceElement = document.querySelector(".popup_add-place");
-//const submitButtonElement = popupPlaceElement.querySelector(".popup__button");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
 const popupOpenPlaceButtonElement = document.querySelector(
   ".profile__add-button"
@@ -22,10 +21,6 @@ const popupOpenPlaceButtonElement = document.querySelector(
 const placeInput = popupPlaceElement.querySelector(".popup__input_type_place");
 const linkInput = popupPlaceElement.querySelector(".popup__input_type_link");
 const elementItems = document.querySelector(".places__list");
-
-//const popupOpenImage = document.querySelector(".popup_view-image");
-//const popupImageElement = popupOpenImage.querySelector(".popup__image");
-//const popupCaptionElement = popupOpenImage.querySelector(".popup__caption");
 
 const validatorConfig = {
   formSelector: ".popup__form",
@@ -47,8 +42,6 @@ const formPlaceElementValidator = new FormValidator(
 
 formProfileElementValidator.enableValidation();
 formPlaceElementValidator.enableValidation();
-
-//
 
 const renderCard = (item) => new Card(item, "#cards-template").renderItem();
 //console.log(renderCard);
