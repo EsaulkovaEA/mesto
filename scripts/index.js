@@ -1,6 +1,6 @@
+import {FormValidator} from './FormValidator.js'
 const popupElement = document.querySelectorAll(".popup");
 const popupProfileElement = document.querySelector(".popup_edit-profile");
-const popupCloseProfileElement = popupProfileElement.querySelector(".popup__close");
 const popupOpenProfileButtonElement = document.querySelector(".profile__edit-button");
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
 const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
@@ -10,7 +10,6 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const submitButtonElement = popupPlaceElement.querySelector(".popup__button");
-const popupClosePlaceElement = popupPlaceElement.querySelector(".popup__close");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
 const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
 const placeInput = popupPlaceElement.querySelector(".popup__input_type_place");
@@ -18,11 +17,10 @@ const linkInput = popupPlaceElement.querySelector(".popup__input_type_link");
 const elementItems = document.querySelector(".places__list");
 
 const popupOpenImage = document.querySelector(".popup_view-image");
-const popupCloseImageElement = popupOpenImage.querySelector(".popup__close");
 const popupImageElement = popupOpenImage.querySelector(".popup__image");
 const popupCaptionElement = popupOpenImage.querySelector(".popup__caption");
 
-const obj = {
+const validatorConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -30,6 +28,12 @@ const obj = {
   inputErrorClass: "popup__input_type_error",
   errorClass: ".popup__input-error",
 };
+
+const formProfileElementValidator = new FormValidator(validatorConfig,formProfileElement)
+const formPlaceElementValidator = new FormValidator(validatorConfig,formPlaceElement)
+
+formProfileElementValidator.enableValidation();
+formPlaceElementValidator.enableValidation();
 
 //создаем карточку
 function renderItem(item) {
@@ -78,7 +82,7 @@ function addCard() {
   elementItems.prepend(renderItem(cardElement));
   placeInput.value = "";
   linkInput.value = "";
-  disableSubmitButton(submitButtonElement,obj);
+  formPlaceElementValidator.disableSubmitButton();
 }
 function addPlaceFormSubmit(event) {
   event.preventDefault();
