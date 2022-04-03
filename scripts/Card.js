@@ -9,7 +9,7 @@ export class Card {
     popupImageElement.src = this._data.link;
     popupImageElement.alt = this._data.name;
     popupCaptionElement.textContent = this._data.name;
-    openPopup(popupOpenImage);  
+    openPopup(popupOpenImage);
 }
   // лайк карточки
   _addLikeCard = () => {
@@ -18,6 +18,7 @@ export class Card {
   // удаление карточки
   _deleteCard = () => {
     this._cardElement.remove();
+    this._element = null;
   };
   _setEventListener() {
     const cardTrash = this._cardElement.querySelector(".element__trash");

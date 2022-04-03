@@ -54,14 +54,13 @@ function addCard() {
   formPlaceElementValidator.disableSubmitButton();
 }
 function addPlaceFormSubmit(event) {
+  closePopup(popupPlaceElement);
   event.preventDefault();
   addCard();
-  closePopup(popupPlaceElement);
 }
 
 // редактировать профиль
 function editProfileFormSubmit(event) {
-  event.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(popupProfileElement);
@@ -81,9 +80,9 @@ popupElement.forEach((popup) => {
 
 //открытие попапа редактировать профиль
 const openPopupProfile = () => {
-  openPopup(popupProfileElement);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  openPopup(popupProfileElement);
 };
 
 formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
