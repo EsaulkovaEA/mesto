@@ -1,10 +1,16 @@
 import { initialCards } from "./initialCards.js";
-import { Card } from "./Card.js";
-import { openPopup, closePopup } from "./utils.js";
-import { FormValidator } from "./FormValidator.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
+import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 const popupElement = document.querySelectorAll(".popup");
 const popupProfileElement = document.querySelector(".popup_edit-profile");
-const popupOpenProfileButtonElement = document.querySelector(".profile__edit-button");
+const popupOpenProfileButtonElement = document.querySelector(
+  ".profile__edit-button"
+);
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
 const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
 const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
@@ -13,7 +19,9 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
-const popupOpenPlaceButtonElement = document.querySelector(".profile__add-button");
+const popupOpenPlaceButtonElement = document.querySelector(
+  ".profile__add-button"
+);
 const placeInput = popupPlaceElement.querySelector(".popup__input_type_place");
 const linkInput = popupPlaceElement.querySelector(".popup__input_type_link");
 const elementItems = document.querySelector(".places__list");
@@ -27,27 +35,43 @@ const validatorConfig = {
   errorClass: ".popup__input-error",
 };
 
-const formProfileElementValidator = new FormValidator(validatorConfig,formProfileElement);
-const formPlaceElementValidator = new FormValidator(validatorConfig,formPlaceElement);
+const formProfileElementValidator = new FormValidator(
+  validatorConfig,
+  formProfileElement
+);
+const formPlaceElementValidator = new FormValidator(
+  validatorConfig,
+  formPlaceElement
+);
 
 formProfileElementValidator.enableValidation();
 formPlaceElementValidator.enableValidation();
 
-const renderCard = (item) => new Card(item, "#cards-template").renderItem();
+const popupImage = new PopupWithImage(".popup_view-image");
+popupImage.setEventListeners();
 
-function renderItems(items) {
-  items.forEach(function (item) {
-    elementItems.append(renderCard(item));
-  });
-}
-renderItems(initialCards);
+const renderCard = (item) =>
+  new Card(item, "#cards-template", () => {
+    popupImage.open(item.name, item.link);
+  }).renderItem();
+
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      elementItems.append(renderCard(item));
+    },
+  },
+  elementItems
+);
+cardList.renderItems();
 
 // добавление карточки
 function addCard() {
   const cardElement = renderCard(
-    { name: placeInput.value,
-      link: linkInput.value,
-    },"#cards-template");
+    { name: placeInput.value, link: linkInput.value },
+    "#cards-template"
+  );
   elementItems.prepend(cardElement);
   placeInput.value = "";
   linkInput.value = "";
@@ -66,25 +90,12 @@ function editProfileFormSubmit(event) {
   closePopup(popupProfileElement);
 }
 
-//закрытие кликом на оверлей и крестик
-popupElement.forEach((popup) => {
-  popup.addEventListener("click", function (event) {
-    if (
-      event.target.classList.contains("popup_opened") ||
-      event.target.classList.contains("popup__close")
-    ) {
-      closePopup(popup);
-    }
-  });
-});
-
 //открытие попапа редактировать профиль
 const openPopupProfile = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
   openPopup(popupProfileElement);
 };
-
 formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
 
 formProfileElement.addEventListener("submit", editProfileFormSubmit);
