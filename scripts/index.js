@@ -12,10 +12,10 @@ const popupOpenProfileButtonElement = document.querySelector(
   ".profile__edit-button"
 );
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
-const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
-const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
+// const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
+// const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
+// const profileTitle = document.querySelector(".profile__title");
+// const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
@@ -83,22 +83,37 @@ function addPlaceFormSubmit(event) {
   addCard();
 }
 
-// редактировать профиль
-function editProfileFormSubmit(event) {
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;
-  closePopup(popupProfileElement);
-}
+// // редактировать профиль
+// function editProfileFormSubmit(event) {
+//   profileTitle.textContent = nameInput.value;
+//   profileSubtitle.textContent = jobInput.value;
+//   closePopup(popupProfileElement);
+// }
 
-//открытие попапа редактировать профиль
+
+
+const userInfo = new UserInfo({ nameInput: '.profile__title', jobInput: '.profile__subtitle' });
+const popupProfile = new PopupWithForm('.popup_edit-profile', userInfo.setUserInfo);
+popupProfile.setEventListeners();
+
+// const popupCard = new PopupWithForm('.popup_type_add-card', (inputValues) => {
+//   cardList.renderer(inputValues);
+//   popupCard.close();
+//   cardFormValidator.toggleButton();
+// }
+// );
+// popupCard.setEventListeners();
+// 
+// //открытие попапа редактировать профиль
 const openPopupProfile = () => {
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-  openPopup(popupProfileElement);
+  popupProfile.setEventListeners(userInfo.getUserInfo)
+  popupProfile.open();
 };
-formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
 
-formProfileElement.addEventListener("submit", editProfileFormSubmit);
+
+// formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
+
+// formProfileElement.addEventListener("submit", editProfileFormSubmit);
 
 popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
 
