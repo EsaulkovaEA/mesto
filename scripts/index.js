@@ -12,8 +12,8 @@ const popupOpenProfileButtonElement = document.querySelector(
   ".profile__edit-button"
 );
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
-// const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
-// const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
+const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
+const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
 // const profileTitle = document.querySelector(".profile__title");
 // const profileSubtitle = document.querySelector(".profile__subtitle");
 
@@ -92,31 +92,38 @@ function addPlaceFormSubmit(event) {
 
 
 
-const userInfo = new UserInfo({ nameInput: '.profile__title', jobInput: '.profile__subtitle' });
-const popupProfile = new PopupWithForm('.popup_edit-profile', userInfo.setUserInfo);
+const user = new UserInfo('.profile__title', '.profile__subtitle');
+const popupProfile = new PopupWithForm({popupSelector: '.popup_edit-profile', handleFormSubmit: (inputValues) => {
+  user.setUserInfo(inputValues);
+   popupProfile.close();}});
 popupProfile.setEventListeners();
+// console.log(user)
+// console.log(popupProfile)
 
-// const popupCard = new PopupWithForm('.popup_type_add-card', (inputValues) => {
-//   cardList.renderer(inputValues);
-//   popupCard.close();
-//   cardFormValidator.toggleButton();
-// }
-// );
-// popupCard.setEventListeners();
-// 
+const popupPlace = new PopupWithForm({popupSelector:'.popup_add-place',handleFormSubmit:(inputValues) => {
+  renderCard(inputValues);
+  popupPlace.close();
+  console.log(popupProfile)
+  // formPlaceElementValidator.toggleButton();
+}});
+popupPlace.setEventListeners();
 // //открытие попапа редактировать профиль
 const openPopupProfile = () => {
-  popupProfile.setEventListeners(userInfo.getUserInfo)
+  nameInput.value = user.getUserInfo().userName;
+  jobInput.value = user.getUserInfo().userJob;
+  // popupProfile.setEventListeners(user.getUserInfo())
   popupProfile.open();
 };
 
 
 // formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
-
+//отправить редактировать профиль
 // formProfileElement.addEventListener("submit", editProfileFormSubmit);
 
 popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
 
 popupOpenPlaceButtonElement.addEventListener("click", function () {
-  openPopup(popupPlaceElement);
+  popupPlace.open();
 });
+
+
