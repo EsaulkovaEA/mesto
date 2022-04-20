@@ -1,17 +1,10 @@
-// import {openPopup,popupOpenImage,popupImageElement,popupCaptionElement} from './utils.js';
 export default class Card {
   constructor(data, cardTemplateSelector,handleCardClick) {
     this._cardsTemplate = document.querySelector(cardTemplateSelector).content;
     this._data = data;
     this._handleCardClick = handleCardClick;
   }
-//   //открытие карточки с изображением
-//   _openPopupImageElement= () =>{
-//     popupImageElement.src = this._data.link;
-//     popupImageElement.alt = this._data.name;
-//     popupCaptionElement.textContent = this._data.name;
-//     openPopup(popupOpenImage);
-// }
+
   // лайк карточки
   _addLikeCard = () => {
     this._cardLike.classList.toggle("element__like_active");
@@ -26,7 +19,6 @@ export default class Card {
     this._cardImage.addEventListener('click', () => {
 			this._handleCardClick(this._data.name, this._data.link)
 		});
-    // this._cardImage.addEventListener("click", this._openPopupImageElement);
     cardTrash.addEventListener("click", this._deleteCard);
     this._cardLike.addEventListener("click", this._addLikeCard);
   }

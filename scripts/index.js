@@ -13,8 +13,6 @@ const popupOpenProfileButtonElement = document.querySelector(
 const formProfileElement = popupProfileElement.querySelector(".popup__form");
 const nameInput = popupProfileElement.querySelector(".popup__input_type_name");
 const jobInput = popupProfileElement.querySelector(".popup__input_type_job");
-// const profileTitle = document.querySelector(".profile__title");
-// const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const popupPlaceElement = document.querySelector(".popup_add-place");
 const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
@@ -63,39 +61,17 @@ const cardList = new Section(
 );
 cardList.renderItems();
 
-// // добавление карточки
-// function addCard() {
-//   const cardElement = renderCard(
-//     { name: placeInput.value, link: linkInput.value },
-//     "#cards-template"
-//   );
-//   elementItems.prepend(cardElement);
-//   placeInput.value = "";
-//   linkInput.value = "";
-//   formPlaceElementValidator.disableSubmitButton();
-// }
-// function addPlaceFormSubmit(event) {
-//   closePopup(popupPlaceElement);
-//   event.preventDefault();
-//   addCard();
-// }
-
-// // редактировать профиль
-// function editProfileFormSubmit(event) {
-//   profileTitle.textContent = nameInput.value;
-//   profileSubtitle.textContent = jobInput.value;
-//   closePopup(popupProfileElement);
-// }
+// добавление карточки
+function addCard(item){
+  const cardElement = renderCard({ name: item.placeInput, link: item.linkInput },
+        "#cards-template"
+        );
+  elementItems.prepend(cardElement);
+  formPlaceElementValidator.disableSubmitButton();
+}
 
 const user = new UserInfo({nameInput:".profile__title", jobInput:".profile__subtitle"});
 
-// const popupProfile = new PopupWithForm({
-//   popupSelector: ".popup_edit-profile",
-//   handleFormSubmit: (inputValues) => {
-//     user.setUserInfo(inputValues);
-//     popupProfile.close();
-//   },
-// });
 const popupProfile = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: user.setUserInfo,
@@ -103,24 +79,16 @@ const popupProfile = new PopupWithForm({
 
 const popupPlace = new PopupWithForm({
   popupSelector: ".popup_add-place",
-  handleFormSubmit: (inputValues) => {
-    cardList.renderer(inputValues);
-    console.log(popupPlace);
-    // formPlaceElementValidator.toggleButton();
-  },
+  handleFormSubmit: addCard
 });
 popupPlace.setEventListeners();
 // //открытие попапа редактировать профиль
 const openPopupProfile = () => {
   nameInput.value = user.getUserInfo().userName;
   jobInput.value = user.getUserInfo().userJob;
-  // popupProfile.setEventListeners(user.getUserInfo())
   popupProfile.open();
 };
 
-// formPlaceElement.addEventListener("submit", addPlaceFormSubmit);
-//отправить редактировать профиль
-// formProfileElement.addEventListener("submit", editProfileFormSubmit);
 
 popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
 
