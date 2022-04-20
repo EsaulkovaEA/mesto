@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({nameInput, jobInput}) {
+  constructor({ nameInput, jobInput }) {
     this._nameInput = document.querySelector(nameInput);
     this._jobInput = document.querySelector(jobInput);
   }
@@ -14,7 +14,5 @@ export default class UserInfo {
   setUserInfo = (inputValues) => {
     this._nameInput.textContent = inputValues.nameInput;
     this._jobInput.textContent = inputValues.jobInput;
-    // this._nameInput.textContent = inputValues.nameInput;
-    // this._jobInput.textContent = inputValues.jobInput;
   };
 }

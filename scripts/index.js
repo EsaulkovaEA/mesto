@@ -5,7 +5,6 @@ import Section from "./Section.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
-const popupElement = document.querySelectorAll(".popup");
 const popupProfileElement = document.querySelector(".popup_edit-profile");
 const popupOpenProfileButtonElement = document.querySelector(
   ".profile__edit-button"
@@ -62,38 +61,42 @@ const cardList = new Section(
 cardList.renderItems();
 
 // добавление карточки
-function addCard(item){
-  const cardElement = renderCard({ name: item.placeInput, link: item.linkInput },
-        "#cards-template"
-        );
+function addCard(item) {
+  const cardElement = renderCard(
+    { name: item.placeInput, link: item.linkInput },
+    "#cards-template"
+  );
   elementItems.prepend(cardElement);
   formPlaceElementValidator.disableSubmitButton();
 }
 
-const user = new UserInfo({nameInput:".profile__title", jobInput:".profile__subtitle"});
+const user = new UserInfo({
+  nameInput: ".profile__title",
+  jobInput: ".profile__subtitle",
+});
 
 const popupProfile = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: user.setUserInfo,
 });
+popupProfile.setEventListeners();
 
 const popupPlace = new PopupWithForm({
   popupSelector: ".popup_add-place",
-  handleFormSubmit: addCard
+  handleFormSubmit: addCard,
 });
 popupPlace.setEventListeners();
-// //открытие попапа редактировать профиль
+
+//открытие попапа редактировать профиль
 const openPopupProfile = () => {
+  popupProfile.open();
   nameInput.value = user.getUserInfo().userName;
   jobInput.value = user.getUserInfo().userJob;
-  popupProfile.open();
+  formProfileElementValidator.disableSubmitButton();
 };
 
-
 popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
-
 
 popupOpenPlaceButtonElement.addEventListener("click", function () {
   popupPlace.open();
 });
-popupProfile.setEventListeners();

@@ -7,12 +7,12 @@ export default class Section {
 
   //принимает DOM-элемент и добавляет его в контейнер
   addItem(element) {
-    this._renderer(element, this._container)
+    this._renderer(element, this._container);
   }
   // отрисовка всех элементов
   renderItems() {
     this._initialItems.forEach((item) => {
-        this._renderer(item, this._container)
+      this._renderer(item, this._container);
     });
   }
 }
