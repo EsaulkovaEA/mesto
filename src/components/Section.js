@@ -6,8 +6,12 @@ export default class Section {
   }
 
   //принимает DOM-элемент и добавляет его в контейнер
-  addItem(element) {
-    this._renderer(element, this._container);
+  addItem(element, addCard) {
+    if (addCard) {
+      this._container.prepend(element);
+    } else {
+      this._container.append(element);
+    }
   }
   // отрисовка всех элементов
   renderItems() {
