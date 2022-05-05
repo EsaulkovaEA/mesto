@@ -3,6 +3,7 @@ export default class Api {
     this._url = config.url;
     this._headers = config.headers;
   }
+
   //получение карточек с сервера
   getAllCards() {
     return fetch(`${this._url}/cards`, {
@@ -16,6 +17,7 @@ export default class Api {
       }
     });
   }
+
   //получение информации о пользователе
   getProfileInfo() {
     return fetch(`${this._url}/users/me`, {
@@ -29,6 +31,7 @@ export default class Api {
       }
     });
   }
+
   //отправить отредактированные данные
   editProfile(data) {
     return fetch(`${this._url}/users/me`, {
@@ -46,7 +49,8 @@ export default class Api {
       }
     });
   }
-  //   Добавление новой карточки
+
+  //добавление карточки
   addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: "POST",
@@ -63,7 +67,8 @@ export default class Api {
       }
     });
   }
-  //   добавление лайка
+
+  // добавление лайка
   addLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
       method: "PUT",
@@ -77,7 +82,7 @@ export default class Api {
     });
   }
 
-  //удаление лайков
+  // удаление лайков
   deleteLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
       method: "DELETE",
@@ -90,7 +95,8 @@ export default class Api {
       }
     });
   }
-  //удаление карточки
+
+  // удаление карточки
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
@@ -103,8 +109,8 @@ export default class Api {
       }
     });
   }
-  //сменить аватар
 
+  // сменить аватар
   editAvatar(avatar) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",

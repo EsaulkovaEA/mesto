@@ -54,8 +54,6 @@ const popupDelete = new PopupWithConfirmation({
 });
 popupDelete.setEventListeners();
 
-// cardList.renderItems();
-
 const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-40",
   headers: {
@@ -63,15 +61,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
-// Promise.all([api.getProfileInfo(), api.getAllCards()])
-//   .then(([userData, cards]) => {
-//     user.setUserInfo(userData);
-//     cardList.renderItems(cards);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
 const cards = api.getAllCards();
 cards.then((data) => {
