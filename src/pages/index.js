@@ -1,5 +1,5 @@
 import "./index.css";
-import {  validatorConfig } from "../utils/constants.js";
+import { validatorConfig } from "../utils/constants.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -62,15 +62,14 @@ const api = new Api({
   },
 });
 
-const cards = api.getAllCards();
-cards.then((data) => {
-  cardList.renderItems(data);
-});
-
-const userInfo = api.getProfileInfo();
-userInfo.then((data) => {
-  user.setUserInfo(data);
-});
+Promise.all([api.getProfileInfo(), api.getAllCards()])
+  .then(([userData, cards]) => {
+    user.setUserInfo(userData);
+    cardList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const user = new UserInfo({
   nameInput: ".profile__title",
@@ -85,11 +84,12 @@ const popupProfile = new PopupWithForm({
       .editProfile(data)
       .then((res) => {
         user.setUserInfo(res);
+        popupProfile.close();
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => popupProfile.setSubmitText("Сохранить"));;
+      .finally(() => popupProfile.setSubmitText("Сохранить"));
   },
 });
 popupProfile.setEventListeners();
@@ -102,6 +102,7 @@ const popupAvatar = new PopupWithForm({
       .editAvatar(data)
       .then((res) => {
         user.setUserInfo(res);
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -143,6 +144,7 @@ const renderCard = (item) => {
           .deleteCard(id)
           .then(() => {
             card.deleteCard();
+            popupDelete.close();
           })
           .catch((err) => {
             console.log(err);
@@ -170,11 +172,12 @@ function addCard(item) {
     .then((res) => {
       cardList.addItem(renderCard(res), true);
       formPlaceElementValidator.disableSubmitButton();
+      popupPlace.close();
     })
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => popupPlace.setSubmitText("Создать"));;
+    .finally(() => popupPlace.setSubmitText("Создать"));
 }
 const popupPlace = new PopupWithForm({
   popupSelector: ".popup_add-place",
@@ -200,5 +203,5 @@ popupOpenPlaceButtonElement.addEventListener("click", function () {
 popupOpenEditAvatarButtonElement.addEventListener("click", function () {
   popupAvatar.open();
   formEditAvatartValidator.resetErrors();
-  formEditAvatartValidator.disableSubmitButton()
+  formEditAvatartValidator.disableSubmitButton();
 });
