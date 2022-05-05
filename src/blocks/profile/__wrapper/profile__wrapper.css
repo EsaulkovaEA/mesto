@@ -1,6 +1,7 @@
 .profile__wrapper {
   display: flex;
   justify-content: flex-start;
+  position: relative;
 }
 @media (max-width: 540px) {
   .profile__wrapper {

@@ -1,10 +1,12 @@
 import "./index.css";
-import { initialCards, validatorConfig } from "../utils/constants.js";
+import {  validatorConfig } from "../utils/constants.js";
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 const popupProfileElement = document.querySelector(".popup_edit-profile");
 const popupOpenProfileButtonElement = document.querySelector(
@@ -19,6 +21,11 @@ const formPlaceElement = popupPlaceElement.querySelector(".popup__form");
 const popupOpenPlaceButtonElement = document.querySelector(
   ".profile__add-button"
 );
+const popupEditAvatar = document.querySelector(".popup_edit-avatar");
+const formEditAvatar = popupEditAvatar.querySelector(".popup__form");
+const popupOpenEditAvatarButtonElement = document.querySelector(
+  ".profile__avatar-button"
+);
 const elementItems = document.querySelector(".places__list");
 
 const formProfileElementValidator = new FormValidator(
@@ -30,49 +37,156 @@ const formPlaceElementValidator = new FormValidator(
   formPlaceElement
 );
 
+const formEditAvatartValidator = new FormValidator(
+  validatorConfig,
+  formEditAvatar
+);
+
 formProfileElementValidator.enableValidation();
 formPlaceElementValidator.enableValidation();
+formEditAvatartValidator.enableValidation();
 
 const popupImage = new PopupWithImage(".popup_view-image");
 popupImage.setEventListeners();
 
-const renderCard = (item) =>
-  new Card(item, "#cards-template", () => {
-    popupImage.open(item.name, item.link);
-  }).renderItem();
+const popupDelete = new PopupWithConfirmation({
+  popupSelector: ".popup_delete-card",
+});
+popupDelete.setEventListeners();
+
+// cardList.renderItems();
+
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-40",
+  headers: {
+    Authorization: "ec3562dc-38d6-49a4-b958-d2cdacbbc00f",
+    "Content-Type": "application/json",
+  },
+});
+
+// Promise.all([api.getProfileInfo(), api.getAllCards()])
+//   .then(([userData, cards]) => {
+//     user.setUserInfo(userData);
+//     cardList.renderItems(cards);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+const cards = api.getAllCards();
+cards.then((data) => {
+  cardList.renderItems(data);
+});
+
+const userInfo = api.getProfileInfo();
+userInfo.then((data) => {
+  user.setUserInfo(data);
+});
+
+const user = new UserInfo({
+  nameInput: ".profile__title",
+  jobInput: ".profile__subtitle",
+  avatarInput: ".profile__avatar-img",
+});
+const popupProfile = new PopupWithForm({
+  popupSelector: ".popup_edit-profile",
+  handleFormSubmit: (data) => {
+    popupProfile.setSubmitText("Сохранение...");
+    api
+      .editProfile(data)
+      .then((res) => {
+        user.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => popupProfile.setSubmitText("Сохранить"));;
+  },
+});
+popupProfile.setEventListeners();
+
+const popupAvatar = new PopupWithForm({
+  popupSelector: ".popup_edit-avatar",
+  handleFormSubmit: (data) => {
+    popupAvatar.setSubmitText("Сохранение...");
+    api
+      .editAvatar(data)
+      .then((res) => {
+        user.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => popupAvatar.setSubmitText("Сохранить"));
+  },
+});
+popupAvatar.setEventListeners();
+
+const renderCard = (item) => {
+  const card = new Card(
+    item,
+    { userId: user._id },
+    "#cards-template",
+    () => {
+      popupImage.open(item.name, item.link);
+    },
+    (id) => {
+      if (card.getLikes()) {
+        api
+          .deleteLike(id)
+          .then((res) => card.setLikesCard(res.likes))
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .addLike(id)
+          .then((res) => card.setLikesCard(res.likes))
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    (id) => {
+      popupDelete.open();
+      popupDelete.changeForm(() => {
+        api
+          .deleteCard(id)
+          .then(() => {
+            card.deleteCard();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    }
+  );
+  return card.renderItem();
+};
 
 const cardList = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       cardList.addItem(renderCard(item));
     },
   },
   elementItems
 );
-cardList.renderItems();
-
 // добавление карточки
 function addCard(item) {
-  const cardElement = renderCard(
-    { name: item.placeInput, link: item.linkInput },
-    "#cards-template"
-  );
-  cardList.addItem(cardElement, true);
-  formPlaceElementValidator.disableSubmitButton();
+  popupPlace.setSubmitText("Создание...");
+  api
+    .addNewCard(item)
+    .then((res) => {
+      cardList.addItem(renderCard(res), true);
+      formPlaceElementValidator.disableSubmitButton();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => popupPlace.setSubmitText("Создать"));;
 }
-
-const user = new UserInfo({
-  nameInput: ".profile__title",
-  jobInput: ".profile__subtitle",
-});
-
-const popupProfile = new PopupWithForm({
-  popupSelector: ".popup_edit-profile",
-  handleFormSubmit: user.setUserInfo,
-});
-popupProfile.setEventListeners();
-
 const popupPlace = new PopupWithForm({
   popupSelector: ".popup_add-place",
   handleFormSubmit: addCard,
@@ -93,4 +207,9 @@ popupOpenProfileButtonElement.addEventListener("click", openPopupProfile);
 popupOpenPlaceButtonElement.addEventListener("click", function () {
   formPlaceElementValidator.resetErrors();
   popupPlace.open();
+});
+popupOpenEditAvatarButtonElement.addEventListener("click", function () {
+  popupAvatar.open();
+  formEditAvatartValidator.resetErrors();
+  formEditAvatartValidator.disableSubmitButton()
 });
